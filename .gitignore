@@ -5,3 +5,5 @@ log/*
 .settings/*
 out/*
 *.iml
+*.ipr
+*.iws

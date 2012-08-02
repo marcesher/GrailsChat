@@ -25,10 +25,12 @@ $(function () {
     transports[4] = "streaming";
     transports[5] = "ajax";
 
+    var chatUrl = 'http://'+document.location.hostname+':'+document.location.port+'/GrailsChat/atmosphere/chatty';
+
     $.each(transports, function (index, transport) {
         var req = new $.atmosphere.AtmosphereRequest();
 
-        req.url = 'http://localhost:8199/GrailsChat/atmosphere/chatty';
+        req.url = chatUrl;
         req.contentType = "application/json";
         req.transport = transport;
         req.headers = { "negotiating" : "true" };
@@ -48,7 +50,7 @@ $(function () {
     <!-- Below is code that can be re-used -->
 
     // We are now ready to cut the request
-    var request = { url: 'http://localhost:8199/GrailsChat/atmosphere/chatty',
+    var request = { url: chatUrl,
         contentType : "application/json",
         logLevel : 'debug',
         shared : 'true',
