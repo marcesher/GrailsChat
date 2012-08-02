@@ -12,20 +12,19 @@ $(function () {
     var socket = $.atmosphere;
     var subSocket;
     var transport = 'websocket';
+    var chatUrl = 'http://'+document.location.hostname+':'+document.location.port+'/GrailsChat/atmosphere/chatty';
 
     <!-- The following code is just here for demonstration purpose and not required -->
     <!-- Used to demonstrate the request.onTransportFailure callback. Not mandatory -->
     var sseSupported = false;
 
     var transports = new Array();
-    transports[0] = "long-polling";
+    transports[0] = "websocket";
     transports[1] = "sse";
     transports[2] = "jsonp";
     transports[3] = "long-polling";
     transports[4] = "streaming";
     transports[5] = "ajax";
-
-    var chatUrl = 'http://'+document.location.hostname+':'+document.location.port+'/GrailsChat/atmosphere/chatty';
 
     $.each(transports, function (index, transport) {
         var req = new $.atmosphere.AtmosphereRequest();
@@ -34,10 +33,8 @@ $(function () {
         req.contentType = "application/json";
         req.transport = transport;
         req.headers = { "negotiating" : "true" };
-        req.maxRequest = 7;
 
         req.onOpen = function(response) {
-
             detect.append('<p><span style="color:blue">' + transport + ' supported: '  + '</span>' + (response.transport == transport));
         }
 
@@ -55,8 +52,7 @@ $(function () {
         logLevel : 'debug',
         shared : 'true',
         transport : transport ,
-        fallbackTransport: 'long-polling',
-        maxRequest:'10'};
+        fallbackTransport: 'long-polling'};
 
 
     request.onOpen = function(response) {
@@ -72,8 +68,6 @@ $(function () {
 
     <!-- You can share messages between window/tabs.   -->
     request.onLocalMessage = function(message) {
-        console.log('inside onLocalMessage');
-
         if (transport != 'local') {
             header.append($('<h4>', { text: 'A new tab/window has been opened'}).css('color', 'green'));
             if (myName) {
@@ -104,16 +98,18 @@ $(function () {
     };
 
     request.onMessage = function (response) {
-        console.log("Inside onMessage");
 
         // We need to be logged first.
         if (!myName) return;
 
         var message = response.responseBody;
+        //console.log('response is ')
+        //console.log(response)
+        //console.log('message is ' + message)
         try {
             var json = jQuery.parseJSON(message);
         } catch (e) {
-            console.log('This doesn\'t look like a valid JSON: ', message.data);
+            //console.log('This doesn\'t look like a valid JSON: ', message);
             return;
         }
 
@@ -132,7 +128,6 @@ $(function () {
     };
 
     request.onClose = function(response) {
-        console.log("inside onClose")
         logged = false;
     }
 
@@ -141,7 +136,6 @@ $(function () {
             + 'socket or the server is down' }));
     };
 
-    console.log('Subscribing!!!!');
     subSocket = socket.subscribe(request);
 
     input.keydown(function(e) {

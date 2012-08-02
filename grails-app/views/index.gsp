@@ -1,122 +1,89 @@
-<!doctype html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Marc
+  Date: 8/1/12
+  Time: 2:05 PM
+  To change this template use File | Settings | File Templates.
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+<head>
+    <meta name="layout" content="main">
+    <title></title>
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
-            
-			#status li {
-				line-height: 1.3;
-			}
+    <style>
+    * {
+        font-family: tahoma;
+        font-size: 12px;
+        padding: 0px;
+        margin: 0px;
+    }
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
+    p {
+        line-height: 18px;
+    }
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
+    div {
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
+    #detect {
+        padding: 5px;
+        background: #ffc0cb;
+        border-radius: 5px;
+        border: 1px solid #CCC;
+        margin-top: 10px;
+    }
 
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
+    #content {
+        padding: 5px;
+        background: #ddd;
+        border-radius: 5px;
+        border: 1px solid #CCC;
+        margin-top: 10px;
+    }
 
-			#controller-list ul {
-				list-style-position: inside;
-			}
+    #header {
+        padding: 5px;
+        background: #f5deb3;
+        border-radius: 5px;
+        border: 1px solid #CCC;
+        margin-top: 10px;
+    }
 
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
+    #input {
+        border-radius: 2px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        padding: 5px;
+        width: 400px;
+    }
 
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
+    #status {
+        width: 88px;
+        display: block;
+        float: left;
+        margin-top: 15px;
+    }
+    </style>
 
-				#page-body {
-					margin: 0 1em 1em;
-				}
 
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+</head>
 
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
-	</body>
+<body>
+<atmosphere:resources/>
+
+<div id="header"><h3>Atmosphere Chat. Default transport is WebSocket, fallback is long-polling</h3></div>
+<div id="detect"><h3>Detecting what the browser and server are supporting</h3></div>
+<div id="content"></div>
+<div>
+    <span id="status">Connecting...</span>
+    <input type="text" id="input"/>
+</div>
+
+</body>
 </html>

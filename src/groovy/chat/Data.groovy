@@ -4,7 +4,7 @@ class Data {
     String author
     long now = new Date().time
 
-    String toString(){
-        return "{'text':'$text','author':'$author','time':'$now'}"
+    String toString() {
+        return "{ \"text\" : \"" + text + "\", \"author\" : \"" + author + "\" , \"time\" : " + now + "}"
     }
 }
