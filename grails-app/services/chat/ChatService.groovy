@@ -1,6 +1,7 @@
 package chat
 
-import org.atmosphere.cpr.AtmosphereRequest
+import org.atmosphere.cpr.*
+
 
 class ChatService {
 
@@ -29,6 +30,13 @@ class ChatService {
 
     def onStateChange = { event ->
         println "Inside onStateChange!"
+        AtmosphereResource r = event.resource
+        AtmosphereResponse res = r.response
 
+        if( event.isSuspended() ){
+            String author = body.substring(body.indexOf(":") + 2, body.indexOf(",") - 1);
+            String message = body.substring(body.lastIndexOf(":") + 2, body.length() - 2);
+            res.writer.write()
+        }
     }
 }
