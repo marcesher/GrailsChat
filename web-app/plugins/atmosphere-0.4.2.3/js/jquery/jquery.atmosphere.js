@@ -68,7 +68,7 @@ jQuery.atmosphere = function() {
                 url : '',
                 data : '',
                 suspend : true,
-                maxRequest : 7,
+                maxRequest : 60,
                 maxStreamingLength : 10000000,
                 lastIndex : 0,
                 logLevel : 'info',
@@ -638,7 +638,6 @@ jQuery.atmosphere = function() {
              * @private
              */
             function _executeRequest(request) {
-                //console.log("INSIDE EXECUTE REQUEST")
                 var rq = _request;
                 if ((request != null) || (typeof(request) != 'undefined')) {
                     rq = request;
