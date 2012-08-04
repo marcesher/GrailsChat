@@ -90,3 +90,9 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+tomcat.deploy.username="grails"
+tomcat.deploy.password="grails"
+tomcat.deploy.url="http://localhost:8080/manager/text"
+tomcat.nio=true
