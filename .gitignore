@@ -5,6 +5,9 @@ log/*
 
 
 out/*
+GrailsChat.ipr
+GrailsChat.iws
 
+.idea/*
 
 
