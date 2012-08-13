@@ -3,9 +3,8 @@ target/*
 *.log
 log/*
 .idea/*
-
 out/*
 GrailsChat.ipr
 GrailsChat.iws
-
+*.iml
 
