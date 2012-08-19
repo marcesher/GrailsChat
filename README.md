@@ -19,5 +19,7 @@ When deploying to your own Tomcat, you'll need to enable the NIO connector
 
 # Notable Config Settings
 
-In `config.groovy`, note I've set `tomcat.nio=true`. You'll want to do the same in your applications that use websockets for use with the Tomcat plugin (i.e. run-app)
+* In `Config.groovy`, note I've set `tomcat.nio=true`. You'll want to do the same in your applications that use websockets for use with the Tomcat plugin (i.e. run-app)
+* In `BuildConfig.groovy`, I've set `grails.tomcat.nio=true`
+* In `AtmosphereConfig.groovy`, I've set these initParams: `initParams = ['org.atmosphere.cpr.cometSupport': 'org.atmosphere.container.Tomcat7CometSupport']`
 
