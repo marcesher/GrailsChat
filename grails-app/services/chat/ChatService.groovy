@@ -30,6 +30,7 @@ class ChatService {
 
     def onStateChange = { event ->
         println "Inside onStateChange!"
+        println "Event is $event"
         AtmosphereResource r = event.resource
         AtmosphereResponse res = r.response
 
